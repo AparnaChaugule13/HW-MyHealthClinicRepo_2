@@ -1,37 +1,40 @@
-name: SonarQube Analysis
+name: SonarQube Scan
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
 
 jobs:
-  sonarqube:
-    name: SonarQube Scan
+  build:
+    name: Build and Analyze
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          distribution: 'temurin'
-          java-version: 17
+          dotnet-version: '8.0.x'  # Change based on your project
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
 
-      - name: Run SonarQube Scanner
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn sonar:sonar \
-            -Dsonar.projectKey= 'Sowmya-mvs_HW-MyHealthClinicRepo' \
-            -Dsonar.host.url= 'https://sonarcloud.io' \
-            -Dsonar.login=$SONAR_TOKEN
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Begin SonarQube scan
+        run: >
+          dotnet sonarscanner begin
+          /k:"Sowmya-mvs_HW-MyHealthClinicRepo"
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+
+      - name: Build project
+        run: dotnet build --no-restore
+
+      - name: End SonarQube scan
+        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"

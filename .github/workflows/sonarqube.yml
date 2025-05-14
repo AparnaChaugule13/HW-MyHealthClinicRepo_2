@@ -34,7 +34,7 @@ jobs:
           /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
 
       - name: Build project
-        run: dotnet build --no-restore
+        run: dotnet build MHC_ASPNetCore.sln --no-restore
 
       - name: End SonarQube scan
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"

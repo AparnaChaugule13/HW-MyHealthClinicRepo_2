@@ -1,0 +1,23 @@
+#Goal: Run Black Duck scans on dependencies for vulnerabilities and license compliance.
+#Prerequisites:Black Duck account,Black Duck Detect CLI (aka synopsys-detect),API token and server URL
+# Store your BLACKDUCK_URL and BLACKDUCK_API_TOKEN as GitHub Secrets.
+
+name: Black Duck Scan
+
+on: [push, pull_request]
+
+jobs:
+  blackduck_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Black Duck Scan
+        run: |
+          curl -s -L https://detect.synopsys.com/detect.sh | bash -s -- \
+            --blackduck.url=${{ secrets.BLACKDUCK_URL }} \
+            --blackduck.api.token=${{ secrets.BLACKDUCK_API_TOKEN }} \
+            --detect.project.name="your-project-name" \
+            --detect.project.version.name="v1.0" \
+            --detect.tools=SIGNATURE_SCAN

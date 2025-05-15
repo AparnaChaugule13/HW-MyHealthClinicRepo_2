@@ -15,7 +15,7 @@ jobs:
       - name: Build using composite action
         uses: ./.github/actions/dotnet-build
         with:
-          project-path: 'MyApp/MyApp.csproj'
+          project-path: 'src/MyHealth.Web/MyHealth.Web.csproj'
 
       - name: Deploy to Staging
         run: echo "Deploying to Staging..."

@@ -1,0 +1,21 @@
+# .github/workflows/deploy-prod.yml
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build using composite action
+        uses: ./.github/actions/dotnet-build
+        with:
+          project-path: 'MyApp/MyApp.csproj'
+
+      - name: Deploy to Production
+        run: echo "Deploying to Production..."
+        # replace with actual deployment commands

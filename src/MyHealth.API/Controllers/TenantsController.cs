@@ -66,6 +66,7 @@ namespace MyHealth.API.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Policies.Tenant)]
         public async Task<TenantResponse> AddAsync([FromBody]TenantRequest request)
         {

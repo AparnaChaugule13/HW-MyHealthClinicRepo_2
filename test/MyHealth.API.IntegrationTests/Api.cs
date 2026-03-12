@@ -18,7 +18,12 @@ namespace MyHealth.API
 
         public static class Put
         {
+            public static readonly string Doctors = "/api/doctors";
+        }
 
+        public static class Delete
+        {
+            public static readonly string Doctor = "/api/doctors/{0}";
         }
 
         public static string For(this string format, params object[] args)

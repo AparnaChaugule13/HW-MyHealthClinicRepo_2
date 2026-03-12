@@ -24,6 +24,8 @@ namespace MyHealth.Model
 
         public string Email { get; set; }
 
+        public string Qualifications { get; set; }
+
         public byte[] Picture { get; set; }
 
         public bool Deleted { get; set; }

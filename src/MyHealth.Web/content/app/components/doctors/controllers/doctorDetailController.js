@@ -5,6 +5,8 @@
         $scope.editMode = doctorId !== undefined;
         var tenantId;
 
+        $scope.specialities = ['Neurosurgeon', 'Orthopedist', 'Cardiologist', 'Ophthalmologist'];
+
         $scope.doctor = {
             CreatedAt: new Date()
         };

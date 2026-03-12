@@ -152,6 +152,7 @@ namespace MyHealth.Data.Repositories
                 Phone = doctor.Phone,
                 Mobile = doctor.Mobile,
                 Email = doctor.Email,
+                Qualifications = doctor.Qualifications,
                 Picture = doctor.Picture,
                 DoctorId = doctor.DoctorId,
                 Deleted = doctor.Deleted,

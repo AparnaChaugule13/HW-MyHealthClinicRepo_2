@@ -29,9 +29,20 @@
                 <label for="formName" class="margin-bottom-10">Name</label>
                 <input type="text" id="formName" class="font-size-30" ng-model="doctor.name" required/>
             </div>
+            <div class="input" ng-class="{'input-edit' : editMode}">
+                <label for="formSpeciality">Speciality</label>
+                <select id="formSpeciality" ng-model="doctor.speciality" required>
+                    <option value="">-- Select Speciality --</option>
+                    <option ng-repeat="s in specialities" value="{{s}}">{{s}}</option>
+                </select>
+            </div>
             <div class="input" ng-class="{'textarea-edit' : editMode}">
                 <label for="formDescription">Description</label>
                 <textarea id="formDescription" ng-model="doctor.description" required></textarea>
+            </div>
+            <div class="input" ng-class="{'textarea-edit' : editMode}">
+                <label for="formQualifications">Qualifications</label>
+                <textarea id="formQualifications" ng-model="doctor.qualifications"></textarea>
             </div>
             <div class="input" ng-class="{'input-edit' : editMode}">
                 <label for="formAddress">Address</label>
